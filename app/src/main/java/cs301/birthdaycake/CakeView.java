@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.RectF;
 import android.util.AttributeSet;
 import android.view.SurfaceView;
 
@@ -17,6 +18,9 @@ public class CakeView extends SurfaceView {
     Paint outerFlamePaint = new Paint();
     Paint innerFlamePaint = new Paint();
     Paint wickPaint = new Paint();
+
+    // Paint that will draw the balloon
+    Paint balloonPaint = new Paint();
 
     /* These constants define the dimensions of the cake.  While defining constants for things
         like this is good practice, we could be calculating these better by detecting
@@ -63,6 +67,8 @@ public class CakeView extends SurfaceView {
         innerFlamePaint.setStyle(Paint.Style.FILL);
         wickPaint.setColor(Color.BLACK);
         wickPaint.setStyle(Paint.Style.FILL);
+        balloonPaint.setColor(0xFF89CFF0);
+        balloonPaint.setStyle(Paint.Style.FILL);
 
         setBackgroundColor(Color.WHITE);  //better than black default
     }
@@ -110,6 +116,7 @@ public class CakeView extends SurfaceView {
     @Override
     public void onDraw(Canvas canvas)
     {
+
         //top and bottom are used to keep a running tally as we progress down the cake layers
         float top = cakeTop;
         float bottom = cakeTop + frostHeight;
@@ -137,6 +144,12 @@ public class CakeView extends SurfaceView {
                 float candle = cakeLeft + cakeWidth * i/(cakeModel.candleNum + 1) - candleWidth / 2;
                 drawCandle(canvas, candle, cakeTop);
             }
+        }
+
+        // Draw balloon
+        if (cakeModel.touchBalloon) {
+            canvas.drawOval(cakeModel.balloonX - 100, cakeModel.balloonY - 110, cakeModel.balloonX + 100, cakeModel.balloonY + 110, balloonPaint);
+            canvas.drawLine(cakeModel.balloonX, cakeModel.balloonY + 110, cakeModel.balloonX, cakeModel.balloonY + 400, wickPaint);
         }
 
     }//onDraw

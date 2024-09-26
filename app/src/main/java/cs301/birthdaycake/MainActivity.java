@@ -2,7 +2,9 @@ package cs301.birthdaycake;
 
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
+import android.text.method.Touch;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.SeekBar;
@@ -31,11 +33,17 @@ public class MainActivity extends AppCompatActivity {
         // Seekbar reference
         SeekBar numCandles = findViewById(R.id.seekBar);
 
+        // Balloon touch reference
         blow.setOnClickListener(cakeCont);
 
+        // Set candle listener
         candle.setOnCheckedChangeListener(cakeCont);
 
+        // Set seek bar listener
         numCandles.setOnSeekBarChangeListener(cakeCont);
+
+        // Set touch for balloon
+        cakeView.setOnTouchListener(cakeCont);
 
     }
 
