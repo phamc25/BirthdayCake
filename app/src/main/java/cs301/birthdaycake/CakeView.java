@@ -4,7 +4,6 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.graphics.RectF;
 import android.util.AttributeSet;
 import android.view.SurfaceView;
 
@@ -18,6 +17,7 @@ public class CakeView extends SurfaceView {
     Paint outerFlamePaint = new Paint();
     Paint innerFlamePaint = new Paint();
     Paint wickPaint = new Paint();
+    Paint ifTouchedPaint = new Paint();
 
     // Paint that will draw the balloon
     Paint balloonPaint = new Paint();
@@ -69,6 +69,9 @@ public class CakeView extends SurfaceView {
         wickPaint.setStyle(Paint.Style.FILL);
         balloonPaint.setColor(0xFF89CFF0);
         balloonPaint.setStyle(Paint.Style.FILL);
+        ifTouchedPaint.setColor(0xFFFF000D);
+        ifTouchedPaint.setStyle(Paint.Style.FILL);
+        ifTouchedPaint.setTextSize(60);
 
         setBackgroundColor(Color.WHITE);  //better than black default
     }
@@ -116,7 +119,6 @@ public class CakeView extends SurfaceView {
     @Override
     public void onDraw(Canvas canvas)
     {
-
         //top and bottom are used to keep a running tally as we progress down the cake layers
         float top = cakeTop;
         float bottom = cakeTop + frostHeight;
@@ -146,10 +148,14 @@ public class CakeView extends SurfaceView {
             }
         }
 
+        if (cakeModel.touched) {
+                String location = ("Touched at " + cakeModel.xLoc + ", and " + cakeModel.yLoc);
+                canvas.drawText(location, 1200, 900, ifTouchedPaint);
+        }
         // Draw balloon
-        if (cakeModel.touchBalloon) {
-            canvas.drawOval(cakeModel.balloonX - 100, cakeModel.balloonY - 110, cakeModel.balloonX + 100, cakeModel.balloonY + 110, balloonPaint);
-            canvas.drawLine(cakeModel.balloonX, cakeModel.balloonY + 110, cakeModel.balloonX, cakeModel.balloonY + 400, wickPaint);
+        if (cakeModel.touched) {
+            canvas.drawOval(cakeModel.xLoc - 100, cakeModel.yLoc - 110, cakeModel.xLoc + 100, cakeModel.yLoc + 110, balloonPaint);
+            canvas.drawLine(cakeModel.xLoc, cakeModel.yLoc + 110, cakeModel.xLoc, cakeModel.yLoc + 400, wickPaint);
         }
 
     }//onDraw
