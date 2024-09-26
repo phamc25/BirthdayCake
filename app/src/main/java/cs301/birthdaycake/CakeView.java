@@ -20,6 +20,7 @@ public class CakeView extends SurfaceView {
     Paint wickPaint = new Paint();
     Paint redPaint = new Paint();
     Paint greenPaint = new Paint();
+    Paint ifTouchedPaint = new Paint();
 
     /* These constants define the dimensions of the cake.  While defining constants for things
         like this is good practice, we could be calculating these better by detecting
@@ -72,6 +73,9 @@ public class CakeView extends SurfaceView {
         redPaint.setStyle(Paint.Style.FILL);
         greenPaint.setColor(Color.GREEN);
         greenPaint.setStyle(Paint.Style.FILL);
+        ifTouchedPaint.setColor(0xFFFF000D);
+        ifTouchedPaint.setStyle(Paint.Style.FILL);
+        ifTouchedPaint.setTextSize(60);
 
         setBackgroundColor(Color.WHITE);  //better than black default
     }
@@ -154,13 +158,17 @@ public class CakeView extends SurfaceView {
                 drawCandle(canvas, candle, cakeTop);
             }
         }
-        if (cakeModel.touchChecker) {
-            drawCheckerboard(canvas, cakeModel.posCheckerX, cakeModel.posCheckerY);
+        if (cakeModel.touched) {
+            drawCheckerboard(canvas, cakeModel.xLoc, cakeModel.yLoc);
         }
 
 
 
 
+        if (cakeModel.touched) {
+                String location = ("Touched at " + cakeModel.xLoc + ", and " + cakeModel.yLoc);
+                canvas.drawText(location, 1200, 900, ifTouchedPaint);
+        }
     }//onDraw
 
 }//class CakeView

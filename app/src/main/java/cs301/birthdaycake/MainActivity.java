@@ -39,10 +39,6 @@ public class MainActivity extends AppCompatActivity {
 
         cakeView.setOnTouchListener(cakeCont);
 
-
-
-
-
     }
 
     public void goodbyeButton(View button) {
