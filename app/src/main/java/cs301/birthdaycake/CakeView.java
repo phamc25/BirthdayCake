@@ -158,11 +158,15 @@ public class CakeView extends SurfaceView {
                 drawCandle(canvas, candle, cakeTop);
             }
         }
+
+        if (cakeModel.touched) {
+            canvas.drawOval(cakeModel.xLoc - 100, cakeModel.yLoc - 110, cakeModel.xLoc + 100, cakeModel.yLoc + 110, balloonPaint);
+            canvas.drawLine(cakeModel.xLoc, cakeModel.yLoc + 110, cakeModel.xLoc, cakeModel.yLoc + 400, wickPaint);
+        }
+
         if (cakeModel.touched) {
             drawCheckerboard(canvas, cakeModel.xLoc, cakeModel.yLoc);
         }
-
-
 
 
         if (cakeModel.touched) {
